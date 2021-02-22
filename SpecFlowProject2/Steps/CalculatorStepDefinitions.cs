@@ -1,6 +1,8 @@
-﻿using TechTalk.SpecFlow;
+﻿using FluentAssertions;
+using TechTalk.SpecFlow;
 
-namespace SpecFlowProject2.Steps
+
+namespace SpecFlowProject1.Steps
 {
     [Binding]
     public sealed class CalculatorStepDefinitions
@@ -24,7 +26,8 @@ namespace SpecFlowProject2.Steps
             // additional string/Table parameters can be defined on the step definition
             // method. 
 
-            _scenarioContext.Pending();
+
+            _scenarioContext.Add("num1", number);
         }
 
         [Given("the second number is (.*)")]
@@ -36,23 +39,85 @@ namespace SpecFlowProject2.Steps
             // additional string/Table parameters can be defined on the step definition
             // method. 
 
-            _scenarioContext.Pending();
+            _scenarioContext.Add("num2", number);
         }
 
         [When("the two numbers are added")]
         public void WhenTheTwoNumbersAreAdded()
         {
             //TODO: implement act (action) logic
+            var n1 = _scenarioContext.Get<int>("num1");
+            var n2 = _scenarioContext.Get<int>("num2");
 
-            _scenarioContext.Pending();
+            _scenarioContext.Add("answer", n1 + n2);
         }
+
+
+        [When("the two numbers are subtracted")]
+        public void WhenTheTwoNumbersAreSubtracted()
+        {
+            //TODO: implement act (action) logic
+            var n1 = _scenarioContext.Get<int>("num1");
+            var n2 = _scenarioContext.Get<int>("num2");
+
+            _scenarioContext.Add("answer", n1 - n2);
+        }
+
+        [When("the two numbers are multiplied")]
+        public void WhenTheTwoNumbersAreMultiplied()
+        {
+            var n1 = _scenarioContext.Get<int>("num1");
+            var n2 = _scenarioContext.Get<int>("num2");
+
+            _scenarioContext.Add("answer", n1 * n2);
+        }
+
+        [Given("the original number is (.*)")]
+        public void GivenTheOriginalNumberIs(int number)
+        {
+            _scenarioContext.Add("answer", number);
+        }
+
+
+        [When(@"operation (.*) is done to the number (.*)")]
+        public void WhenOperationIsDoneToTheNumber(string oper, int number)
+        {
+            var n1 = _scenarioContext.Get<int>("answer");
+            _scenarioContext.Remove("answer");
+            switch (oper)
+            {
+                case "+":
+                    _scenarioContext.Add("answer", n1 + number);
+                    break;
+                case "-":
+                    _scenarioContext.Add("answer", n1 - number);
+                    break;
+                case "*":
+                    _scenarioContext.Add("answer", n1 * number);
+                    break;
+                case "/":
+                    _scenarioContext.Add("answer", n1 / number);
+                    break;
+                case "%":
+                    _scenarioContext.Add("answer", n1 % number);
+                    break;
+                default:
+                    break;
+            };
+
+
+        }
+
+
 
         [Then("the result should be (.*)")]
         public void ThenTheResultShouldBe(int result)
         {
             //TODO: implement assert (verification) logic
 
-            _scenarioContext.Pending();
+            var n3 = _scenarioContext.Get<int>("answer");
+            n3.Should().Be(result);
+
         }
     }
 }

@@ -19,13 +19,13 @@ namespace SpecFlowProject1.Steps
         }
 
         [Given(@"Miles dirven is (.*)")]
-        public void GivenMilesDirvenIs(int miles)
+        public void GivenMilesDirvenIs(float miles)
         {
             _scenarioContext.Add("miles", miles);
         }
 
         [Given(@"Gallons used is (.*)")]
-        public void GivenGallonsUsedIs(int gallons)
+        public void GivenGallonsUsedIs(float gallons)
         {
             _scenarioContext.Add("gallons", gallons);
         }
@@ -34,14 +34,14 @@ namespace SpecFlowProject1.Steps
         public void WhenCalc_MpgIsCalled()
         {
             FuelEfficiency f = new FuelEfficiency();
-            _scenarioContext.Add("mpg", calc_mpg(_scenarioContext.Get<int>(miles), _scenarioContext.Get<int>(miles)));
+            _scenarioContext.Add("mpg", f.calc_mpg(_scenarioContext.Get<float>("miles"), _scenarioContext.Get<float>("gallons")));
             //ScenarioContext.Current.Pending();
         }
 
         [Then(@"the fuel efficiency should be (.*)")]
-        public void ThenTheFuelEfficiencyShouldBe(int result)
+        public void ThenTheFuelEfficiencyShouldBe(float result)
         {
-            var n1 = _scenarioContext.Get<int>("answer");
+            var n1 = _scenarioContext.Get<float>("mpg");
             n1.Should().Be(result);
         }
 
