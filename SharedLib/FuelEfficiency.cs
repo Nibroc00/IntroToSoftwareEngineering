@@ -4,9 +4,9 @@ namespace SharedLib
 {
     public class FuelEfficiency
     {
-        public int calc_mpg(int miles, int gallons)
+        public float calc_mpg(float miles, float gallons)
         {
-            return 9;
+            return miles/gallons;
         }
 
     }
