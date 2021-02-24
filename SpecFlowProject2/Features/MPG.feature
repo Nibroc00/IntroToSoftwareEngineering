@@ -38,3 +38,13 @@ Scenario: Gas Hog
 	And Gallons used is 10
 	When calc_mpg is called
 	Then the car is a gas hog
+
+Scenario: Miles and Gallons Tracker
+	Given we add 20.4 miles
+	And we add 71 miles
+	And we add 3 gallons
+	And we add 4.7 gallons
+	When get_miles is called
+	And get_gallons is called
+	Then miles is 91.4
+	And gallons is 7.7
