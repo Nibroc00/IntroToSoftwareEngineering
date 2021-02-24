@@ -18,8 +18,8 @@ namespace SpecFlowProject1.Steps
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"Miles dirven is (.*)")]
-        public void GivenMilesDirvenIs(float miles)
+        [Given(@"Miles driven is (.*)")]
+        public void GivenMilesDrivenIs(float miles)
         {
             _scenarioContext.Add("miles", miles);
         }
@@ -43,6 +43,12 @@ namespace SpecFlowProject1.Steps
         {
             var n1 = _scenarioContext.Get<float>("mpg");
             n1.Should().Be(result);
+        }
+
+        [Then(@"the car is a gas hog")]
+        public void ThenTheCarIsAGasHog()
+        {
+            var n1 = _scenarioContext.Get<float>("mpg");
         }
 
     }
