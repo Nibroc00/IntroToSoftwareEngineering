@@ -82,18 +82,15 @@ namespace SpecFlowProject1.Steps
             _scenarioContext.Add("gallons", t.get_gallons());
         }
 
-    //------Question----------------------------------------------------------------------------------
-
         [Then(@"miles is (.*) and gallons is (.*)")]
         public void ThenMilesIsAndGallonsIs(float m, float g)
         {
             var n1 = _scenarioContext.Get<float>("miles");
             var n2 = _scenarioContext.Get<float>("gallons");
             n1.Should().Be(m);
-            n1.Should().Be(g);
+            n2.Should().Be(g);
         }
 
-    //------End Question----------------------------------------------------------------------------------
 
         [Then(@"miles is (.*)")]
         public void ThenMilesIs(float m)
